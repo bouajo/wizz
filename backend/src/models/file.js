@@ -24,10 +24,20 @@ const File = sequelize.define('File', {
   organizationId: {
     type: DataTypes.UUID,
     allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
   },
 });
 
-File.belongsTo(User, { foreignKey: 'uploadedBy', as: 'Uploader' });
-File.belongsTo(Organization, { foreignKey: 'organizationId' });
+// Define relationships
+File.belongsTo(User, {
+  foreignKey: 'uploadedBy',
+  as: 'Uploader', // Alias to access the uploader details
+  onDelete: 'CASCADE', // Ensure files are deleted if the user is deleted
+});
+
+File.belongsTo(Organization, {
+  foreignKey: 'organizationId',
+  onDelete: 'CASCADE', // Ensure files are deleted if the organization is deleted
+});
 
 module.exports = File;

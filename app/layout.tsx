@@ -1,44 +1,40 @@
-import { ThemeProvider } from "@/components/theme-provider"
-import { Header } from "@/components/header"
-import { Sidebar } from "@/components/sidebar"
-import '@/app/globals.css'
-import type { Metadata } from 'next'
+'use client';
 
-export const metadata = {
-  title: 'DMS',
-  description: 'Document Management System',
-}
+import { Auth0Provider } from '@auth0/auth0-react';
+import ThemeProvider from "@/components/theme-provider";
+import { Header } from "@/components/header";
+import { Sidebar } from "@/components/sidebar";
+import RequireAuth from "@/components/RequireAuth";
+import "@/app/globals.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
+        <Auth0Provider
+          domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
+          clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
+          authorizationParams={{
+            redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI!,
+            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE!,
+            scope: "openid profile email write:files",
+            useRefreshTokens: true,
+            useRefreshTokensFallback: false
+          }}
         >
-          <div className="min-h-screen flex">
-            {/* Sidebar */}
-            <Sidebar />
-            
-            {/* Main content area */}
-            <div className="flex-1">
-              {/* Header */}
-              <Header />
-              
-              {/* Main content */}
-              <main className="p-6">
-                {children}
-              </main>
-            </div>
-          </div>
-        </ThemeProvider>
+          <RequireAuth>
+            <ThemeProvider>
+              <div className="min-h-screen flex">
+                <Sidebar />
+                <div className="flex-1">
+                  <Header />
+                  <main className="app-container">{children}</main>
+                </div>
+              </div>
+            </ThemeProvider>
+          </RequireAuth>
+        </Auth0Provider>
       </body>
     </html>
-  )
+  );
 }

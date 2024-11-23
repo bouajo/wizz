@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db');
+const { v4: uuidv4 } = require('uuid'); // For generating unique organization IDs
 
 const User = sequelize.define('User', {
   id: {
@@ -14,20 +15,29 @@ const User = sequelize.define('User', {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   role: {
     type: DataTypes.ENUM('admin', 'user'),
     defaultValue: 'user',
+  },
+  organizationId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: () => uuidv4(), // Generate a unique ID for each organization
+    unique: true,
   },
 });
 
