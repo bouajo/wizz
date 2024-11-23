@@ -3,7 +3,7 @@ const jwksRsa = require('jwks-rsa');
 const User = require('../models/user');
 const Organization = require('../models/organization'); // Assuming users are tied to organizations
 
-// Middleware to validate JWT and populate req.auth (instead of req.user)
+// Middleware to validate JWT and populate req.auth
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
