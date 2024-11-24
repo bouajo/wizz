@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Activity, FileText, Send, Users, Settings, ChevronDown } from 'lucide-react'
+import { Activity, FileText, Send, Users, Settings, ChevronDown, MessageSquarePlus } from 'lucide-react'
 
 const menuItems = [
   { icon: Activity, label: 'Dashboard', href: '/' },
@@ -17,6 +17,11 @@ const menuItems = [
       { label: 'Generate', href: '/documents/generate' },
       { label: 'Send', href: '/send-document' },
     ]
+  },
+  { 
+    icon: MessageSquarePlus, 
+    label: 'Fill & Send', 
+    href: '/fill-send'
   },
   { icon: Users, label: 'Team', href: '/team' },
   { icon: Settings, label: 'Settings', href: '/settings' },

@@ -561,6 +561,10 @@ img, video {
   height: 24px;
 }
 
+.h-\[400px\] {
+  height: 400px;
+}
+
 .h-\[var\(--radix-select-trigger-height\)\] {
   height: var(--radix-select-trigger-height);
 }
@@ -645,6 +649,10 @@ img, video {
   max-width: 42rem;
 }
 
+.max-w-\[80\%\] {
+  max-width: 80%;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -724,6 +732,10 @@ img, video {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-end {
@@ -810,6 +822,10 @@ img, video {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .truncate {
